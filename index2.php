@@ -1,4 +1,4 @@
-
+<?php require "conex.php"; ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -46,19 +46,19 @@
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <!--li class="nav-item active">
             <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
+            <a class="nav-link disabled" href="#">Sem Função</a>
+          </li-->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LayOut's</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
+              <!--a class="dropdown-item" href="#">Action</a-->
               <a class="dropdown-item" href="index.php">LayOut Um</a>
               <a class="dropdown-item" href="index2.php">LayOut Dois</a>
             </div>
@@ -80,7 +80,7 @@
             <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Lista</button>
           </p>
           <div >
-            <h1>Charqueadas TEM <small>.com.br</small></h1>
+            <h1 style="color: #abcdef;">Charqueadas TEM <small>.com.br</small></h1>
             
           </div>
           <div class="row" id="grupo">
@@ -110,6 +110,18 @@
                   }
                 }
                 closedir($handle);
+                //POSTAGENS ANONIMOS
+                  $query = mysqli_query($conex, "SELECT * FROM postagem; ");
+                  $titulo = ""; $texto = ""; $img = ""; $data = "";
+                  while($var = mysqli_fetch_array($query)){
+                      $titulo = $var['titulo'];
+                      $texto = $var['texto'];
+                      $img = substr($var['img'], 3);
+                      $data = $var['data'];
+                        echo "<div class='col-6 col-lg-4'><item> <h2>".substr($var['titulo'], 0, 14)."<small>...</small></h2>  <img class='img-fluid' src='A proposta do Site/".$img."'>    <p id='texto-capa-anun".$cont."'>".substr($texto, 0, 56)."</p>     <p><a class='btn btn-secondary' href='A proposta do Site/postagem.php?id=".$var['cod']."' role='button'>Ver detalhes &raquo;</a></p>    </item></div><!--/span-->";
+                  }
+                // fim POST ANONIMOS
+
               }
             ?>
           </div><!--/row-->
@@ -156,6 +168,8 @@
 
       let item = document.getElementsByTagName('item');
       let um=dois=tres=qua="";
+      //primeira postagem
+      um = "<div class='col-xs-12 fundos'> <h2> <div ><item> <h2><!--small>Charqueadas</small-->.</h2>  <img class='img-fluid' src='A proposta do Site/fotos/capa.png' id='anuncie_aqui'>    <!--p id='texto-capa-'><small>Então poste aqui...</small></p-->     <p><a class='btn btn-secondary' href='A proposta do Site/' role='button'>Ver detalhes &raquo;</a></p>    </item></div><!--/span--> </h2></div>";
       //
       for (let i = 0; i < item.length; i++) {
         console.log("==>"+item[i].innerHTML);
@@ -190,7 +204,21 @@
       }, 3000);
       //*/
       
-    
+      // ANUNCIE AQUI MUDAR IMAGEM
+        let cont_img=0; 
+        setInterval(function(){ 
+          if(cont_img % 3 == 0){
+            document.getElementById('anuncie_aqui').src = "A proposta do Site/fotos/anunciar-aqui.jpg";
+          }
+          if(cont_img % 3 == 1){
+            document.getElementById('anuncie_aqui').src = "A proposta do Site/fotos/Anuncie.jpg";
+          }
+          if(cont_img % 3 == 2){
+            document.getElementById('anuncie_aqui').src = "A proposta do Site/fotos/capa.png";
+          }
+          cont_img++;
+        }, 5000);
+        document.getElementById('anuncie_aqui').src = "A proposta do site/fotos/";
     </script>
   </body>
 </html>

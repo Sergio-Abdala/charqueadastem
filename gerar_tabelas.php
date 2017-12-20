@@ -15,4 +15,14 @@
 		lido int,
 		data datetime
 		);")or die("ñ foi possivel gerar tabela X9... ".mysqli_error($conex));
+
+	mysqli_query($conex, "CREATE TABLE if not exists postagem(
+		cod bigint not null primary key auto_increment,
+		uri varchar(1024),
+		titulo varchar(1024),
+		texto text,
+		img text,
+		data datetime
+		);")or die("ñ foi possivel gerar tabela postagem... ".mysqli_error($conex));
+	
 ?>

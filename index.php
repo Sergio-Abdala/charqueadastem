@@ -9,6 +9,12 @@
     <link rel="shortcut icon" href="img/favicon.ico">
 
     <title>Charqueadas TEM</title>
+    <!-- botão curtir facebook -->
+    <meta property="og:url"           content="http://www.charqueadastem.provisorio.ws/" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Charqueadas TEM" />
+    <meta property="og:description"   content="Catalogo comercial da Cidade" />
+    <meta property="og:image"         content="http://www.charqueadastem.provisorio.ws/img/charqueadas.jpg" />
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -35,6 +41,27 @@
   </head>
 
   <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.11&appId=1153358398073649';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- Marcação JSON-LD gerada pelo Assistente de marcação para dados estruturados do Google. -->
+    <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "LocalBusiness",
+      "name" : "CharqueadasTEM",
+      "image" : "http://www.charqueadastem.provisorio.ws/img/charqueadas.jpg",
+      "address" : {
+        "@type" : "PostalAddress",
+        "addressLocality" : "Charqueadas"
+      }
+    }
+    </script>
 
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
       <a class="navbar-brand" href="#">CharqueadasTEM</a>
@@ -44,23 +71,24 @@
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <!--li class="nav-item active">
             <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
+            <a class="nav-link disabled" href="#">Sem Função</a>
+          </li-->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LayOut's</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
+              <!--a class="dropdown-item" href="#">Action</a-->
               <a class="dropdown-item" href="index.php">LayOut Um</a>
               <a class="dropdown-item" href="index2.php">LayOut Dois</a>
             </div>
           </li>
+          <li class="nav-item"></li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Faça sua busca aqui..." aria-label="Search" id="busca">
@@ -79,7 +107,7 @@
           </p>
           <div >
             <h1 style="color: #abcdef;">Charqueadas TEM <small>.com.br</small></h1>
-            
+            <div class="fb-like" data-href="http://charqueadastem.provisorio.ws/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
           </div>
           <div class="row" id="grupo">
             <?php
@@ -89,6 +117,7 @@
               $tipos = array( 'png', 'jpg', 'jpeg', 'gif' );
               if ( $handle = opendir('hotsites/') ) {
                 $cont=0;
+
                 while ( $pasta = readdir( $handle ) ) {
                   $ext = strtolower( pathinfo( $pasta, PATHINFO_EXTENSION) );
                   //if( in_array( $ext, $tipos ) ) 
@@ -102,13 +131,26 @@
                       $texto = utf8_encode($texto);
                     //}
                     fclose($p);
-                    echo "<div class='col-6 col-lg-4'><item> <h4>".substr($pasta, 0, 14)."<small>...</small></h4>  <img class='img-fluid' src='hotsites/".$pasta."/fotos/capa.jpg'>    <p id='texto-capa-".$cont."'>".$texto."</p>     <p><a class='btn btn-secondary' href='hotsites/".$pasta."/' role='button'>Ver detalhes &raquo;</a></p>    </item></div><!--/span-->";
+                    echo "<div class='col-6 col-lg-4'><item> <h4>".substr($pasta, 0, 18)."<small>...</small></h4>  <img class='img-fluid' src='hotsites/".$pasta."/fotos/capa.jpg'>    <p id='texto-capa-".$cont."'>".$texto."</p>     <p><a class='btn btn-secondary' href='hotsites/".$pasta."/' role='button'>Ver detalhes &raquo;</a></p>    </item></div><!--/span-->";
+                    
                     $cont++;
                     $menu_lateral .= "<a href='hotsites/".$pasta."/' class='list-group-item'>".$pasta."</a>";
                     //href='hotsites/".$pasta."/'
                   }
+                  
                 }
                 closedir($handle);
+                //POSTAGENS ANONIMOS
+                  $query = mysqli_query($conex, "SELECT * FROM postagem; ");
+                  $titulo = ""; $texto = ""; $img = ""; $data = "";
+                  while($var = mysqli_fetch_array($query)){
+                      $titulo = $var['titulo'];
+                      $texto = $var['texto'];
+                      $img = substr($var['img'], 3);
+                      $data = $var['data'];
+                        echo "<div class='col-6 col-lg-4'><item> <h2>".substr($var['titulo'], 0, 14)."<small>...</small></h2>  <img class='img-fluid' src='A proposta do Site/".$img."'>    <p id='texto-capa-anun".$cont."'>".substr($texto, 0, 56)."</p>     <p><a class='btn btn-secondary' href='A proposta do Site/postagem.php?id=".$var['cod']."' role='button'>Ver detalhes &raquo;</a></p>    </item></div><!--/span-->";
+                  }
+                // fim POST ANONIMOS
               }
             ?>
           </div><!--/row-->
@@ -145,7 +187,10 @@
       document.getElementById('btn-busca').addEventListener('click', function(){ 
         let buscar = document.getElementById('busca').value; 
         if(buscar != ''){
-          alert(buscar + '  Ainda ñ amiguinho...'); 
+          alert(buscar + '  Ainda ñ amiguinho...');
+          //fazer busca nos hotsites primeiro pastas
+          //...
+          //fazer busca nos anuncios anonimos banco sql...
         }else{
           alert('BUSCA VAZIA...');
         }
@@ -154,24 +199,38 @@
       let item = document.getElementsByTagName('item');
       let um=dois=tres="";
       //primeira postagem
-      //um = "<div class='col-xs-12 fundos'> <h2> <div ><item> <h2>Titulo <small> um...</small></h2>  <img class='img-fluid' src='img/charqueadas.jpg'>    <p id='texto-capa-'>TEXTO</p>     <p><a class='btn btn-secondary' href='#' role='button'>Ver detalhes &raquo;</a></p>    </item></div><!--/span--> </h2></div>";
+      um = "<div class='col-xs-12 fundos'> <h2> <div ><item> <h2><!--small>Charqueadas</small-->.</h2>  <img class='img-fluid' src='A proposta do Site/fotos/capa.png' id='anuncie_aqui'>    <!--p id='texto-capa-'><small>Então poste aqui...</small></p-->     <p><a class='btn btn-secondary' href='A proposta do Site/' role='button'>Ver detalhes &raquo;</a></p>    </item></div><!--/span--> </h2></div>";
       //
       for (let i = 0; i < item.length; i++) {
         console.log("==>"+item[i].innerHTML);
         if (i%3 == 0) {
-          um += "<div class='col-xs-12 fundos'>"+item[i].innerHTML+"</div>";
+          dois += "<div class='col-xs-12 fundos'>"+item[i].innerHTML+"</div>";
         }
         if (i%3 == 1) {
-          dois += "<div class='col-12 fundos'>"+item[i].innerHTML+"</div>";
+          tres += "<div class='col-12 fundos'>"+item[i].innerHTML+"</div>";
         }
         if (i%3 == 2) {
-          tres += "<div class='col-12 fundos'>"+item[i].innerHTML+"</div>";
+          um += "<div class='col-12 fundos'>"+item[i].innerHTML+"</div>";
         }
         console.log("AQUI "+i+" ==>"+um);
       }
       //remendo PORKO no corpinhu...
       document.getElementById('grupo').innerHTML = "<div class='col-6 col-lg-4 fundo' id='um'><div class='row'><nav>"+um+"</nav></div></div><div class='col-6 col-lg-4 fundo' id='dois'><div class='row'>"+dois+"</div></div><div class='col-12 col-lg-4 fundo' id='tres'><div class='row'>"+tres+"</div></div>";
-      
+      // ANUNCIE AQUI MUDAR IMAGEM
+      let cont_img=0; 
+      setInterval(function(){ 
+        if(cont_img % 3 == 0){
+          document.getElementById('anuncie_aqui').src = "A proposta do Site/fotos/anunciar-aqui.jpg";
+        }
+        if(cont_img % 3 == 1){
+          document.getElementById('anuncie_aqui').src = "A proposta do Site/fotos/Anuncie.jpg";
+        }
+        if(cont_img % 3 == 2){
+          document.getElementById('anuncie_aqui').src = "A proposta do Site/fotos/capa.png";
+        }
+        cont_img++;
+      }, 5000);
+      document.getElementById('anuncie_aqui').src = "A proposta do Site/fotos/";
     </script>
   </body>
 </html>
