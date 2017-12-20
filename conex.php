@@ -1,5 +1,5 @@
 <?php  
-	$conex = mysqli_connect("localhost","user","123deoliveira4");// banco ficticio  charqueadastem
+	$conex = mysqli_connect("localhost","root","123deoliveira4");// banco ficticio  charqueadastem
 	mysqli_select_db($conex,"provisorio");// charqueadastem
 
 	// Checkar conexão
