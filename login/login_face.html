@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<title>login</title>
+</head>
+<body>
+
+<script>
+	function statusChangeCallback(response) {
+      console.log('statusChangeCallback');
+      console.log(response);
+
+      if (response.status === 'connected'){
+      	//sua implementação
+      	alert('logado no facebook como '+ response.name);
+      } else if (response.status === 'not_authorized') {
+      	// sua implementação
+      	alert('faça login com sua conta do facebook')
+      }else{
+      	alert('favor logar em sua conta do facebook');
+      }
+    }
+
+	function checkLoginState() {
+	  FB.getLoginStatus(function(response) {
+	    statusChangeCallback(response);
+	  });
+	}
+
+  //?????????????????????????????????????????????????????????????????????????????????????????
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '2021059334841626',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.11'
+    });
+      
+    FB.AppEvents.logPageView();   
+    //retorna o objeto response AQUI QUE TÁ O PULO DO GATO
+	FB.getLoginStatus(function(response) {
+	    statusChangeCallback(response);
+	});
+      
+  };
+	/*{
+	    status: 'connected',
+	    authResponse: {
+	        accessToken: '...',
+	        expiresIn:'...',
+	        signedRequest:'...',
+	        userID:'...'
+	    }
+	}*/
+  // load SDK
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+  //??????????????????????????????????????????????????????????????????????????????????????????
+  	
+</script>
+
+	
+	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">	</fb:login-button>
+	<hr>
+	<!-- botão próprio invocar a caixa de diálogo Login com uma chamada para FB.login() -->
+	<button onclick="FB.login();">logar facebook</button>
+</body>
+</html>
