@@ -1,6 +1,6 @@
 <?php  
-	$conex = mysqli_connect("tem_provisorio.mysql.dbaas.com.br","tem_provisorio","r2d2c3po");// 186.202.152.238  charqueadastem
-	mysqli_select_db($conex,"tem_provisorio");// charqueadastem
+	$conex = mysqli_connect("localhost","user","123deoliveira4");// banco ficticio  charqueadastem
+	mysqli_select_db($conex,"provisorio");// charqueadastem
 
 	// Checkar conexão
 	if (mysqli_connect_errno())
