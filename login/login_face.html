@@ -7,11 +7,22 @@
 <body>
 
 <script>
+	function checkLoginState() {// cria objeto response...
+	  FB.getLoginStatus(function(response) {
+	    statusChangeCallback(response);
+	  });
+	}
+	//
 	function statusChangeCallback(response) {
       console.log('statusChangeCallback');
       console.log(response);
 
       if (response.status === 'connected'){
+      	//nome e id...
+      	FB.api('/me', function(response) {
+		    console.log(JSON.stringify(response));
+		    alert('UM=> logado no facebook como '+ response.name +" id: "+ response.id);
+		});
       	//sua implementação
       	alert('logado no facebook como '+ response.name);
       } else if (response.status === 'not_authorized') {
@@ -21,13 +32,6 @@
       	alert('favor logar em sua conta do facebook');
       }
     }
-
-	function checkLoginState() {
-	  FB.getLoginStatus(function(response) {
-	    statusChangeCallback(response);
-	  });
-	}
-
   //?????????????????????????????????????????????????????????????????????????????????????????
   window.fbAsyncInit = function() {
     FB.init({
@@ -38,10 +42,11 @@
     });
       
     FB.AppEvents.logPageView();   
-    //retorna o objeto response AQUI QUE TÁ O PULO DO GATO
+    /*/retorna o objeto response AQUI QUE TÁ O PULO DO GATO
 	FB.getLoginStatus(function(response) {
 	    statusChangeCallback(response);
 	});
+	*/
       
   };
 	/*{
